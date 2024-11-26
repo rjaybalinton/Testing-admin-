@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+    
+        /* Header Styling */
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+    
+        /* Section Styling */
+        section {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+    
+        /* Chart Styling */
+        canvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+    
+        /* Responsive Styling */
+        @media (max-width: 600px) {
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+    
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <%- include('partials/header') %>
+    <h1>Scholarship Data</h1>
+
+    <!-- Year Level Pie Chart -->
+    <section>
+        <h2>Year Level Percentage</h2>
+        <canvas id="yearLevelChart"></canvas>
+    </section>
+
+    <!-- Degree Program Pie Chart -->
+    <section>
+        <h2>Degree Program Percentage</h2>
+        <canvas id="degreeProgramChart"></canvas>
+    </section>
+
+    <script>
+        // Data for Year Level Chart
+        const yearLevelLabels = <%- JSON.stringify(yearLevelLabels) %>;
+        const yearLevelData = <%- JSON.stringify(yearLevelData) %>;
+
+        // Render Year Level Pie Chart
+        const yearLevelCtx = document.getElementById('yearLevelChart').getContext('2d');
+        new Chart(yearLevelCtx, {
+            type: 'pie',
+            data: {
+                labels: yearLevelLabels,
+                datasets: [{
+                    label: 'Percentage of Students by Year Level',
+                    data: yearLevelData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Data for Degree Program Chart
+        const degreeProgramLabels = <%- JSON.stringify(degreeProgramLabels) %>;
+        const degreeProgramData = <%- JSON.stringify(degreeProgramData) %>;
+
+        // Render Degree Program Pie Chart
+        const degreeProgramCtx = document.getElementById('degreeProgramChart').getContext('2d');
+        new Chart(degreeProgramCtx, {
+            type: 'pie',
+            data: {
+                labels: degreeProgramLabels,
+                datasets: [{
+                    label: 'Percentage of Students by Degree Program',
+                    data: degreeProgramData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
